@@ -48,7 +48,7 @@ DSL.prototype = {
       options.path = "/" + name;
     }
 
-    if (this.parent && this.parent !== 'application') {
+    if (this.parent && this.parent !== 'app') {
       name = this.parent + "." + name;
     }
 

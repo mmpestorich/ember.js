@@ -94,7 +94,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   Example:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     names: ["Yehuda", "Tom"]
   });
   ```
@@ -116,7 +116,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   `value` property directly or as a binding:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     selectedName: 'Tom',
     names: ["Yehuda", "Tom"]
   });
@@ -156,7 +156,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   element's text. Both paths must reference each object itself as `content`:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     programmers: [
       {firstName: "Yehuda", id: 1},
       {firstName: "Tom",    id: 2}
@@ -185,7 +185,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   `valueBinding` option:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     programmers: [
       {firstName: "Yehuda", id: 1},
       {firstName: "Tom",    id: 2}
@@ -224,7 +224,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   element:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     selectedPerson: null,
     programmers: [
       {firstName: "Yehuda", id: 1},
@@ -261,7 +261,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   results in there being no `<option>` with a `selected` attribute:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     selectedProgrammer: null,
     programmers: [
       "Yehuda",
@@ -293,7 +293,7 @@ Ember.SelectOptgroup = Ember.CollectionView.extend({
   with the `prompt` option:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     selectedProgrammer: null,
     programmers: [
       "Yehuda",

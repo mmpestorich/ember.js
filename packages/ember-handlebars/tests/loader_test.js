@@ -50,7 +50,7 @@ test('template with id instead of data-template-name should add a new template t
 test('template without data-template-name or id should default to application', function() {
   Ember.$('#qunit-fixture').html('<script type="text/x-handlebars">{{firstName}} takes {{drug}}</script>');
 
-  checkTemplate('application');
+  checkTemplate('app');
 });
 
 test('template with type text/x-raw-handlebars should be parsed', function() {
@@ -77,7 +77,7 @@ test('duplicated default application templates should throw exception', function
 });
 
 test('default application template and id application template present should throw exception', function() {
-  Ember.$('#qunit-fixture').html('<script type="text/x-handlebars">first</script><script type="text/x-handlebars" id="application">second</script>');
+  Ember.$('#qunit-fixture').html('<script type="text/x-handlebars">first</script><script type="text/x-handlebars" id="app">second</script>');
 
   throws(function () {
     Ember.Handlebars.bootstrap(Ember.$('#qunit-fixture'));
@@ -87,7 +87,7 @@ test('default application template and id application template present should th
 });
 
 test('default application template and data-template-name application template present should throw exception', function() {
-  Ember.$('#qunit-fixture').html('<script type="text/x-handlebars">first</script><script type="text/x-handlebars" data-template-name="application">second</script>');
+  Ember.$('#qunit-fixture').html('<script type="text/x-handlebars">first</script><script type="text/x-handlebars" data-template-name="app">second</script>');
 
   throws(function () {
     Ember.Handlebars.bootstrap(Ember.$('#qunit-fixture'));

@@ -50,12 +50,12 @@ test("Resetting the application allows controller properties to be set when a ro
       this.controllerFor('home').set('selectedMenuItem', null);
     }
   });
-  App.ApplicationRoute = Ember.Route.extend({
+  App.AppRoute = Ember.Route.extend({
     setupController: function() {
-      this.controllerFor('application').set('selectedMenuItem', 'home');
+      this.controllerFor('app').set('selectedMenuItem', 'home');
     },
     deactivate: function() {
-      this.controllerFor('application').set('selectedMenuItem', null);
+      this.controllerFor('app').set('selectedMenuItem', null);
     }
   });
 
@@ -66,10 +66,10 @@ test("Resetting the application allows controller properties to be set when a ro
   handleURL('/');
 
   equal(Ember.controllerFor(container, 'home').get('selectedMenuItem'), 'home');
-  equal(Ember.controllerFor(container, 'application').get('selectedMenuItem'), 'home');
+  equal(Ember.controllerFor(container, 'app').get('selectedMenuItem'), 'home');
 
   App.reset();
 
   equal(Ember.controllerFor(container, 'home').get('selectedMenuItem'), null);
-  equal(Ember.controllerFor(container, 'application').get('selectedMenuItem'), null);
+  equal(Ember.controllerFor(container, 'app').get('selectedMenuItem'), null);
 });

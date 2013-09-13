@@ -107,7 +107,7 @@ test('initialized application go to initial route', function() {
       location: 'none'
     });
 
-    app.register('template:application',
+    app.register('template:app',
       Ember.Handlebars.compile("{{outlet}}")
     );
 
@@ -129,7 +129,7 @@ test("initialize application via initialize call", function() {
       location: 'none'
     });
 
-    app.ApplicationView = Ember.View.extend({
+    app.AppView = Ember.View.extend({
       template: function() { return "<h1>Hello!</h1>"; }
     });
   });
@@ -151,7 +151,7 @@ test("initialize application with stateManager via initialize call from Router c
       location: 'none'
     });
 
-    app.register('template:application', function() {
+    app.register('template:app', function() {
       return "<h1>Hello!</h1>";
     });
   });
@@ -161,19 +161,19 @@ test("initialize application with stateManager via initialize call from Router c
   equal(Ember.$("#qunit-fixture h1").text(), "Hello!");
 });
 
-test("ApplicationView is inserted into the page", function() {
+test("AppView is inserted into the page", function() {
   Ember.run(function() {
     app = Ember.Application.create({
       rootElement: '#qunit-fixture'
     });
 
-    app.ApplicationView = Ember.View.extend({
+    app.AppView = Ember.View.extend({
       render: function(buffer) {
         buffer.push("<h1>Hello!</h1>");
       }
     });
 
-    app.ApplicationController = Ember.Controller.extend();
+    app.AppController = Ember.Controller.extend();
 
     app.Router.reopen({
       location: 'none'

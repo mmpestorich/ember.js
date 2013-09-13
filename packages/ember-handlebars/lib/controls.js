@@ -55,7 +55,7 @@ function normalizeHash(hash, hashTypes) {
   Bound:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     firstName: "Stanley",
     entryNotAllowed: true
   });
@@ -109,7 +109,7 @@ function normalizeHash(hash, hashTypes) {
   Bound:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     isAdmin: true
   });
   ```
@@ -196,12 +196,12 @@ Ember.Handlebars.registerHelper('input', function(options) {
 
   Bound:
 
-  In the following example, the `writtenWords` property on `App.ApplicationController`
+  In the following example, the `writtenWords` property on `App.AppController`
   will be updated live as the user types 'Lots of text that IS bound' into
   the text area of their browser's window.
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     writtenWords: "Lots of text that IS bound"
   });
   ```
@@ -222,7 +222,7 @@ Ember.Handlebars.registerHelper('input', function(options) {
   somewhere else on your screen, you could use `Ember.computed.oneWay`:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     writtenWords: "Lots of text that IS bound",
     outputWrittenWords: Ember.computed.oneWay("writtenWords")
   });
@@ -257,7 +257,7 @@ Ember.Handlebars.registerHelper('input', function(options) {
   your really binding in both directions:
 
   ```javascript
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     writtenWords: "Lots of text that IS bound",
     twoWayWrittenWords: Ember.computed.alias("writtenWords")
   });

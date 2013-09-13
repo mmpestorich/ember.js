@@ -450,7 +450,7 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     this.register('router:main', this.Router);
 
     this.runInitializers();
-    Ember.runLoadHooks('application', this);
+    Ember.runLoadHooks('app', this);
 
     // At this point, any initializers or load hooks that would have wanted
     // to defer readiness have fired. In general, advancing readiness here
@@ -717,7 +717,7 @@ Ember.Application.reopenClass({
     container.optionsForType('component', { singleton: false });
     container.optionsForType('view', { singleton: false });
     container.optionsForType('template', { instantiate: false });
-    container.register('application:main', namespace, { instantiate: false });
+    container.register('app:main', namespace, { instantiate: false });
 
     container.register('controller:basic', Ember.Controller, { instantiate: false });
     container.register('controller:object', Ember.ObjectController, { instantiate: false });
@@ -725,10 +725,10 @@ Ember.Application.reopenClass({
     container.register('route:basic', Ember.Route, { instantiate: false });
     container.register('event_dispatcher:main', Ember.EventDispatcher);
 
-    container.injection('router:main', 'namespace', 'application:main');
+    container.injection('router:main', 'namespace', 'app:main');
 
     container.injection('controller', 'target', 'router:main');
-    container.injection('controller', 'namespace', 'application:main');
+    container.injection('controller', 'namespace', 'app:main');
 
     container.injection('route', 'router', 'router:main');
 

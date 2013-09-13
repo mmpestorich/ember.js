@@ -4,7 +4,7 @@ var compile = Ember.Handlebars.compile;
 module("Application Lifecycle - Component Registration", {
   setup: function() {
     Ember.TEMPLATES["components/expand-it"] = compile("<p>hello {{yield}}</p>");
-    Ember.TEMPLATES.application = compile("Hello world {{#expand-it}}world{{/expand-it}}");
+    Ember.TEMPLATES.app = compile("Hello world {{#expand-it}}world{{/expand-it}}");
   },
 
   teardown: function() {

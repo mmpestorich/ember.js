@@ -53,7 +53,7 @@ Ember.Router = Ember.Object.extend({
   },
 
   didTransition: function(infos) {
-    var appController = this.container.lookup('controller:application'),
+    var appController = this.container.lookup('controller:app'),
         path = Ember.Router._routePath(infos);
 
     if (!('currentPath' in appController)) { defineProperty(appController, 'currentPath'); }
@@ -170,7 +170,7 @@ Ember.Router = Ember.Object.extend({
         }
       }
 
-      if (name === 'application') {
+      if (name === 'app') {
         // Inject default `error` handler.
         handler.events = handler.events || {};
         handler.events.error = handler.events.error || Ember.Router._defaultErrorHandler;
@@ -333,7 +333,7 @@ Ember.Router.reopenClass({
     }
 
     var dsl = Ember.RouterDSL.map(function() {
-      this.resource('application', { path: "/" }, function() {
+      this.resource('app', { path: "/" }, function() {
         for (var i=0; i < router.callbacks.length; i++) {
           router.callbacks[i].call(this);
         }

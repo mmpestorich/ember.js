@@ -116,10 +116,10 @@ test("When an application is reset, the eventDispatcher is destroyed and recreat
   Ember.EventDispatcher = originalDispatcher;
 });
 
-test("When an application is reset, the ApplicationView is torn down", function() {
+test("When an application is reset, the AppView is torn down", function() {
   Ember.run(function() {
     application = Application.create();
-    application.ApplicationView = Ember.View.extend({
+    application.AppView = Ember.View.extend({
       elementId: "application-view"
     });
   });
@@ -162,20 +162,20 @@ test("When an application is reset, the router URL is reset to `/`", function() 
 
   application.reset();
 
-  var applicationController = application.__container__.lookup('controller:application');
+  var AppController = application.__container__.lookup('controller:app');
   router = application.__container__.lookup('router:main');
   location = router.get('location');
 
   equal(location.getURL(), '');
 
-  equal(get(applicationController, 'currentPath'), "index");
+  equal(get(AppController, 'currentPath'), "index");
 
   location = application.__container__.lookup('router:main').get('location');
   Ember.run(function() {
     location.handleURL('/one');
   });
 
-  equal(get(applicationController, 'currentPath'), "one");
+  equal(get(AppController, 'currentPath'), "one");
 });
 
 test("When an application with advance/deferReadiness is reset, the app does correctly become ready after reset", function() {

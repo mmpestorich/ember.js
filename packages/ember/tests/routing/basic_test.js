@@ -63,7 +63,7 @@ module("Basic Routing", {
 
       container = App.__container__;
 
-      Ember.TEMPLATES.application = compile("{{outlet}}");
+      Ember.TEMPLATES.app = compile("{{outlet}}");
       Ember.TEMPLATES.home = compile("<h3>Hours</h3>");
       Ember.TEMPLATES.homepage = compile("<h3>Megatroll</h3><p>{{home}}</p>");
       Ember.TEMPLATES.camelot = compile('<section><h3>Is a silly place</h3></section>');
@@ -113,7 +113,7 @@ test("The Homepage", function() {
 
   var currentPath;
 
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     currentPathDidChange: Ember.observer(function() {
       currentPath = get(this, 'currentPath');
     }, 'currentPath')
@@ -142,7 +142,7 @@ test("The Home page and the Camelot page with multiple Router.map calls", functi
 
   var currentPath;
 
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     currentPathDidChange: Ember.observer(function() {
       currentPath = get(this, 'currentPath');
     }, 'currentPath')
@@ -754,7 +754,7 @@ asyncTest("The Special page returning an error invokes SpecialRoute's error hand
   handleURLRejectsWith('/specials/1', 'Setup error');
 });
 
-asyncTest("ApplicationRoute's default error handler can be overridden", function() {
+asyncTest("AppRoute's default error handler can be overridden", function() {
   Router.map(function() {
     this.route("home", { path: "/" });
     this.resource("special", { path: "/specials/:menu_item_id" });
@@ -773,10 +773,10 @@ asyncTest("ApplicationRoute's default error handler can be overridden", function
     }
   });
 
-  App.ApplicationRoute = Ember.Route.extend({
+  App.AppRoute = Ember.Route.extend({
     actions: {
       error: function(reason) {
-        equal(reason, 'Setup error', "error was correctly passed to custom ApplicationRoute handler");
+        equal(reason, 'Setup error', "error was correctly passed to custom AppRoute handler");
         start();
       }
     }
@@ -849,7 +849,7 @@ asyncTest("Nested callbacks are not exited when moving to siblings", function() 
 
   var currentPath;
 
-  App.ApplicationController = Ember.Controller.extend({
+  App.AppController = Ember.Controller.extend({
     currentPathDidChange: Ember.observer(function() {
       currentPath = get(this, 'currentPath');
     }, 'currentPath')
@@ -1464,7 +1464,7 @@ test("A redirection hook is provided", function() {
 
   equal(chooseFollowed, 0, "The choose route wasn't entered since a transition occurred");
   equal(Ember.$("h3:contains(Hours)", "#qunit-fixture").length, 1, "The home template was rendered");
-  equal(router.container.lookup('controller:application').get('currentPath'), 'home');
+  equal(router.container.lookup('controller:app').get('currentPath'), 'home');
 });
 
 test("Redirecting from the middle of a route aborts the remainder of the routes", function() {
@@ -1498,7 +1498,7 @@ test("Redirecting from the middle of a route aborts the remainder of the routes"
 
   handleURLAborts("/foo/bar/baz");
 
-  equal(router.container.lookup('controller:application').get('currentPath'), 'home');
+  equal(router.container.lookup('controller:app').get('currentPath'), 'home');
   equal(router.get('location').getURL(), "/home");
 });
 
@@ -1537,7 +1537,7 @@ test("Redirecting to the current target in the middle of a route does not abort 
 
   handleURL("/foo/bar/baz");
 
-  equal(router.container.lookup('controller:application').get('currentPath'), 'foo.bar.baz');
+  equal(router.container.lookup('controller:app').get('currentPath'), 'foo.bar.baz');
   equal(successCount, 1, 'transitionTo success handler was called once');
 
 });
@@ -1582,7 +1582,7 @@ test("Redirecting to the current target with a different context aborts the rema
 
   handleURLAborts("/foo/bar/1/baz");
 
-  equal(router.container.lookup('controller:application').get('currentPath'), 'foo.bar.baz');
+  equal(router.container.lookup('controller:app').get('currentPath'), 'foo.bar.baz');
   equal(router.get('location').getURL(), "/foo/bar/2/baz");
 });
 
@@ -1606,17 +1606,17 @@ test("Transitioning from a parent event does not prevent currentPath from being 
 
   bootApplication();
 
-  var applicationController = router.container.lookup('controller:application');
+  var AppController = router.container.lookup('controller:app');
 
   handleURL("/foo/bar/baz");
 
-  equal(applicationController.get('currentPath'), 'foo.bar.baz');
+  equal(AppController.get('currentPath'), 'foo.bar.baz');
 
   Ember.run(function() {
     router.send("goToQux");
   });
 
-  equal(applicationController.get('currentPath'), 'foo.qux');
+  equal(AppController.get('currentPath'), 'foo.qux');
   equal(router.get('location').getURL(), "/foo/qux");
 });
 
@@ -1624,7 +1624,7 @@ test("Generated names can be customized when providing routes with dot notation"
   expect(4);
 
   Ember.TEMPLATES.index = compile("<div>Index</div>");
-  Ember.TEMPLATES.application = compile("<h1>Home</h1><div class='main'>{{outlet}}</div>");
+  Ember.TEMPLATES.app = compile("<h1>Home</h1><div class='main'>{{outlet}}</div>");
   Ember.TEMPLATES.foo = compile("<div class='middle'>{{outlet}}</div>");
   Ember.TEMPLATES.bar = compile("<div class='bottom'>{{outlet}}</div>");
   Ember.TEMPLATES['bar/baz'] = compile("<p>{{name}}Bottom!</p>");
@@ -1668,7 +1668,7 @@ test("Generated names can be customized when providing routes with dot notation"
 
 test("Child routes render into their parent route's template by default", function() {
   Ember.TEMPLATES.index = compile("<div>Index</div>");
-  Ember.TEMPLATES.application = compile("<h1>Home</h1><div class='main'>{{outlet}}</div>");
+  Ember.TEMPLATES.app = compile("<h1>Home</h1><div class='main'>{{outlet}}</div>");
   Ember.TEMPLATES.top = compile("<div class='middle'>{{outlet}}</div>");
   Ember.TEMPLATES.middle = compile("<div class='bottom'>{{outlet}}</div>");
   Ember.TEMPLATES['middle/bottom'] = compile("<p>Bottom!</p>");
@@ -1690,7 +1690,7 @@ test("Child routes render into their parent route's template by default", functi
 
 test("Child routes render into specified template", function() {
   Ember.TEMPLATES.index = compile("<div>Index</div>");
-  Ember.TEMPLATES.application = compile("<h1>Home</h1><div class='main'>{{outlet}}</div>");
+  Ember.TEMPLATES.app = compile("<h1>Home</h1><div class='main'>{{outlet}}</div>");
   Ember.TEMPLATES.top = compile("<div class='middle'>{{outlet}}</div>");
   Ember.TEMPLATES.middle = compile("<div class='bottom'>{{outlet}}</div>");
   Ember.TEMPLATES['middle/bottom'] = compile("<p>Bottom!</p>");
@@ -1742,7 +1742,7 @@ test("Parent route context change", function() {
   var editCount = 0,
       editedPostIds = Ember.A();
 
-  Ember.TEMPLATES.application = compile("{{outlet}}");
+  Ember.TEMPLATES.app = compile("{{outlet}}");
   Ember.TEMPLATES.posts = compile("{{outlet}}");
   Ember.TEMPLATES.post = compile("{{outlet}}");
   Ember.TEMPLATES['post/index'] = compile("showing");
@@ -1899,7 +1899,7 @@ test("HistoryLocation has the correct rootURL on initState and webkit doesn't fi
 
 
 test("Only use route rendered into main outlet for default into property on child", function() {
-  Ember.TEMPLATES.application = compile("{{outlet menu}}{{outlet}}");
+  Ember.TEMPLATES.app = compile("{{outlet menu}}{{outlet}}");
   Ember.TEMPLATES.posts = compile("{{outlet}}");
   Ember.TEMPLATES['posts/index'] = compile("postsIndex");
   Ember.TEMPLATES['posts/menu'] = compile("postsMenu");
@@ -1923,7 +1923,7 @@ test("Only use route rendered into main outlet for default into property on chil
     renderTemplate: function() {
       this.render();
       this.render('postsMenu', {
-        into: 'application',
+        into: 'app',
         outlet: 'menu'
       });
     }
@@ -2009,13 +2009,13 @@ test("Nested index route is not overriden by parent's implicit index route", fun
 });
 
 test("Application template does not duplicate when re-rendered", function() {
-  Ember.TEMPLATES.application = compile("<h3>I Render Once</h3>{{outlet}}");
+  Ember.TEMPLATES.app = compile("<h3>I Render Once</h3>{{outlet}}");
 
   Router.map(function() {
     this.route('posts');
   });
 
-  App.ApplicationRoute = Ember.Route.extend({
+  App.AppRoute = Ember.Route.extend({
     model: function() {
       return Ember.A();
     }
@@ -2030,7 +2030,7 @@ test("Application template does not duplicate when re-rendered", function() {
 });
 
 test("Child routes should render inside the application template if the application template causes a redirect", function() {
-  Ember.TEMPLATES.application = compile("<h3>App</h3> {{outlet}}");
+  Ember.TEMPLATES.app = compile("<h3>App</h3> {{outlet}}");
   Ember.TEMPLATES.posts = compile("posts");
 
   Router.map(function() {
@@ -2038,7 +2038,7 @@ test("Child routes should render inside the application template if the applicat
     this.route('photos');
   });
 
-  App.ApplicationRoute = Ember.Route.extend({
+  App.AppRoute = Ember.Route.extend({
     afterModel: function() {
       this.transitionTo('posts');
     }
@@ -2167,15 +2167,15 @@ test("The template is not re-rendered when two routes present the exact same tem
   equal(insertionCount, 2, "view should have inserted a second time");
 });
 
-test("ApplicationRoute with model does not proxy the currentPath", function() {
+test("AppRoute with model does not proxy the currentPath", function() {
   var model = {};
   var currentPath;
 
-  App.ApplicationRoute = Ember.Route.extend({
+  App.AppRoute = Ember.Route.extend({
     model: function () { return model; }
   });
 
-  App.ApplicationController = Ember.ObjectController.extend({
+  App.AppController = Ember.ObjectController.extend({
     currentPathDidChange: Ember.observer(function() {
       currentPath = get(this, 'currentPath');
     }, 'currentPath')
@@ -2218,7 +2218,7 @@ asyncTest("Promises encountered on app load put app into loading state until res
 });
 
 test("Route should tear down multiple outlets", function() {
-  Ember.TEMPLATES.application = compile("{{outlet menu}}{{outlet}}{{outlet footer}}");
+  Ember.TEMPLATES.app = compile("{{outlet menu}}{{outlet}}{{outlet footer}}");
   Ember.TEMPLATES.posts = compile("{{outlet}}");
   Ember.TEMPLATES.users = compile("users");
   Ember.TEMPLATES['posts/index'] = compile("postsIndex");
@@ -2250,14 +2250,14 @@ test("Route should tear down multiple outlets", function() {
   App.PostsRoute = Ember.Route.extend({
     renderTemplate: function() {
       this.render('postsMenu', {
-        into: 'application',
+        into: 'app',
         outlet: 'menu'
       });
 
       this.render();
 
       this.render('postsFooter', {
-        into: 'application',
+        into: 'app',
         outlet: 'footer'
       });
     }
@@ -2281,7 +2281,7 @@ test("Route should tear down multiple outlets", function() {
 
 
 test("Route supports clearing outlet explicitly", function() {
-  Ember.TEMPLATES.application = compile("{{outlet}}{{outlet modal}}");
+  Ember.TEMPLATES.app = compile("{{outlet}}{{outlet modal}}");
   Ember.TEMPLATES.posts = compile("{{outlet}}");
   Ember.TEMPLATES.users = compile("users");
   Ember.TEMPLATES['posts/index'] = compile("postsIndex {{outlet}}");
@@ -2311,12 +2311,12 @@ test("Route supports clearing outlet explicitly", function() {
     actions: {
       showModal: function() {
         this.render('postsModal', {
-          into: 'application',
+          into: 'app',
           outlet: 'modal'
         });
       },
       hideModal: function() {
-        this.disconnectOutlet({outlet: 'modal', parentView: 'application'});
+        this.disconnectOutlet({outlet: 'modal', parentView: 'app'});
       }
     }
   });
@@ -2472,7 +2472,7 @@ test("Actions can be handled by inherited action handlers", function() {
   router.send("baz");
 });
 
-test("currentRouteName is a property installed on ApplicationController that can be used in transitionTo", function() {
+test("currentRouteName is a property installed on AppController that can be used in transitionTo", function() {
 
   expect(24);
 
@@ -2490,7 +2490,7 @@ test("currentRouteName is a property installed on ApplicationController that can
 
   bootApplication();
 
-  var appController = router.container.lookup('controller:application');
+  var appController = router.container.lookup('controller:app');
 
   function transitionAndCheck(path, expectedPath, expectedRouteName) {
     if (path) { Ember.run(router, 'transitionTo', path); }

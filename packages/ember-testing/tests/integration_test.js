@@ -34,7 +34,7 @@ module("ember-testing Integration", {
         }
       });
 
-      App.ApplicationView = Ember.View.extend({
+      App.AppView = Ember.View.extend({
         defaultTemplate: Ember.Handlebars.compile("{{outlet}}")
       });
 

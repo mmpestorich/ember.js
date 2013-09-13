@@ -89,28 +89,28 @@ test("actively generated classes get logged", function() {
   Ember.run(App, 'advanceReadiness');
 
   visit('/posts').then(function() {
-    equal(logs['controller:application'], 1, 'expected: ApplicationController was generated');
+    equal(logs['controller:app'], 1, 'expected: AppController was generated');
     equal(logs['controller:posts'], 1, 'expected: PostsController was generated');
 
-    equal(logs['route:application'], 1, 'expected: ApplicationRoute was generated');
+    equal(logs['route:app'], 1, 'expected: AppRoute was generated');
     equal(logs['route:posts'], 1, 'expected: PostsRoute was generated');
   });
 });
 
 test("predefined classes do not get logged", function() {
-  App.ApplicationController = Ember.Controller.extend();
+  App.AppController = Ember.Controller.extend();
   App.PostsController = Ember.Controller.extend();
 
-  App.ApplicationRoute = Ember.Route.extend();
+  App.AppRoute = Ember.Route.extend();
   App.PostsRoute = Ember.Route.extend();
 
   Ember.run(App, 'advanceReadiness');
 
   visit('/posts').then(function() {
-    ok(!logs['controller:application'], 'did not expect: ApplicationController was generated');
+    ok(!logs['controller:app'], 'did not expect: AppController was generated');
     ok(!logs['controller:posts'], 'did not expect: PostsController was generated');
 
-    ok(!logs['route:application'], 'did not expect: ApplicationRoute was generated');
+    ok(!logs['route:app'], 'did not expect: AppRoute was generated');
     ok(!logs['route:posts'], 'did not expect: PostsRoute was generated');
   });
 });
@@ -155,11 +155,11 @@ module("Ember.Application – logging of view lookups", {
 });
 
 test("log when template and view are missing when flag is active", function() {
-  App.register('template:application', function() { return ''; });
+  App.register('template:app', function() { return ''; });
   Ember.run(App, 'advanceReadiness');
 
   visit('/posts').then(function() {
-    equal(logs['template:application'], undefined, 'expected: Should not log template:application since it exists.');
+    equal(logs['template:app'], undefined, 'expected: Should not log template:application since it exists.');
     equal(logs['template:index'], 1, 'expected: Could not find "index" template or view.');
     equal(logs['template:posts'], 1, 'expected: Could not find "posts" template or view.');
   });
@@ -178,13 +178,13 @@ test("do not log when template and view are missing when flag is not true", func
 });
 
 test("log which view is used with a template", function() {
-  App.register('template:application', function() { return 'Template with default view'; });
+  App.register('template:app', function() { return 'Template with default view'; });
   App.register('template:foo', function() { return 'Template with custom view'; });
   App.register('view:posts', Ember.View.extend({templateName: 'foo'}));
   Ember.run(App, 'advanceReadiness');
 
   visit('/posts').then(function() {
-    equal(logs['view:application'], 1, 'expected: Should log use of default view');
+    equal(logs['view:app'], 1, 'expected: Should log use of default view');
     equal(logs['view:index'], undefined, 'expected: Should not log when index is not present.');
     equal(logs['view:posts'], 1, 'expected: Rendering posts with PostsView.');
   });

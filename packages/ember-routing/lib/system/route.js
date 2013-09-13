@@ -229,13 +229,13 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     });
     ```
 
-    `error` actions that bubble up all the way to `ApplicationRoute`
+    `error` actions that bubble up all the way to `AppRoute`
     will fire a default error handler that logs the error. You can
     specify your own global default error handler by overriding the
-    `error` handler on `ApplicationRoute`:
+    `error` handler on `AppRoute`:
 
     ```js
-    App.ApplicationRoute = Ember.Route.extend({
+    App.AppRoute = Ember.Route.extend({
       actions: {
         error: function(error, transition) {
           this.controllerFor('banner').displayError(error.message);
@@ -354,7 +354,7 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
       this.route("index");
     });
 
-    App.ApplicationRoute = Ember.Route.extend({
+    App.AppRoute = Ember.Route.extend({
       actions: {
         track: function(arg) {
           console.log(arg, 'was clicked');
@@ -1010,18 +1010,18 @@ Ember.Route = Ember.Object.extend(Ember.ActionHandler, {
     Example:
 
     ```js
-    App.ApplicationRoute = App.Route.extend({
+    App.AppRoute = App.Route.extend({
       actions: {
         showModal: function(evt) {
           this.render(evt.modalName, {
             outlet: 'modal',
-            into: 'application'
+            into: 'app'
           });
         },
         hideModal: function(evt) {
           this.disconnectOutlet({
             outlet: 'modal',
-            parentView: 'application'
+            parentView: 'app'
           });
         }
       }

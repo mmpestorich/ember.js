@@ -38,7 +38,7 @@ Ember.Handlebars.bootstrap = function(ctx) {
       // Get the name of the script, used by Ember.View's templateName property.
       // First look for data-template-name attribute, then fall back to its
       // id if no name is found.
-      templateName = script.attr('data-template-name') || script.attr('id') || 'application',
+      templateName = script.attr('data-template-name') || script.attr('id') || 'app',
       template = compile(script.html());
 
     // Check if template of same name already exists

@@ -17,8 +17,8 @@ var buildContainer = function(namespace) {
   container.resolver = resolverFor(namespace);
   container.optionsForType('view', { singleton: false });
   container.optionsForType('template', { instantiate: false });
-  container.register('application:main', namespace, { instantiate: false });
-  container.injection('router:main', 'namespace', 'application:main');
+  container.register('app:main', namespace, { instantiate: false });
+  container.injection('router:main', 'namespace', 'app:main');
 
   container.register('controller:basic', Ember.Controller, { instantiate: false });
   container.register('controller:object', Ember.ObjectController, { instantiate: false });
