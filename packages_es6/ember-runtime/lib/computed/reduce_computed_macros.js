@@ -740,23 +740,12 @@ function sort(itemsKey, sortDefinition) {
 
     addedItem: function (array, item, changeMeta, instanceMeta) {
       var index = instanceMeta.binarySearch(array, item);
-      array.insertAt(index, item);
+      if (array.indexOf(item) === -1) array.insertAt(index, item);
       return array;
     },
 
     removedItem: function (array, item, changeMeta, instanceMeta) {
-      var proxyProperties, index, searchItem;
-
-      if (changeMeta.previousValues) {
-        proxyProperties = merge({ content: item }, changeMeta.previousValues);
-
-        searchItem = SearchProxy.create(proxyProperties);
-      } else {
-        searchItem = item;
-      }
-
-      index = instanceMeta.binarySearch(array, searchItem);
-      array.removeAt(index);
+      array.removeObject(item);
       return array;
     }
   });
